@@ -1,0 +1,7 @@
+node_modules
+dist
+.cache
+projects/*/renders
+package-lock.json
+projects/*/assets/*.json
+projects/*/assets/*.geojson

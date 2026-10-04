@@ -1,0 +1,492 @@
+{
+  "version": 1,
+  "id": "scene-gallery",
+  "title": "Atlas scen • Świadek Dziejów",
+  "language": "pl-PL",
+  "seed": 1945,
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "fps": 30,
+  "duration": 36,
+  "theme": "editorial",
+  "narration": {
+    "kind": "silent-demo",
+    "note": "Intentional silent component gallery, not a completed documentary."
+  },
+  "assets": [
+    {
+      "id": "tusk",
+      "file": "assets/tusk.jpg",
+      "kind": "image",
+      "role": "documentary",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Donald_Tusk_KPRM_HQ.jpg",
+      "acquired": "2026-10-03",
+      "author": "Kancelaria Prezesa Rady Ministrów / Gov.pl",
+      "license": "CC BY 3.0 PL — https://creativecommons.org/licenses/by/3.0/pl/",
+      "originalFilename": "Donald Tusk KPRM HQ.jpg",
+      "sha256": "6597225797e52a4cdf11c7ea28d0c1c0ba46effdce26615467de476445085516",
+      "width": 1280,
+      "height": 1680,
+      "note": "Portrait dated 19 December 2023, English-language Gov.pl licensed version. Screen crop and equal color treatment. Original source https://www.gov.pl/web/primeminister/donald-tusk"
+    },
+    {
+      "id": "duda",
+      "file": "assets/duda.jpg",
+      "kind": "image",
+      "role": "documentary",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Andrzej_Duda_Official_Portrait.jpg",
+      "acquired": "2026-10-03",
+      "author": "Jakub Szymczuk / Kancelaria Prezydenta RP (Commons attribution)",
+      "license": "CC BY-SA 4.0 — https://creativecommons.org/licenses/by-sa/4.0/",
+      "originalFilename": "Andrzej Duda Official Portrait.jpg",
+      "sha256": "0e6979aaabfa88f100f0709161a26fdedf8da2e320a5209a950a1149bd4d4175",
+      "width": 2096,
+      "height": 2333,
+      "note": "Portrait dated 7 January 2019. Display crop/overlay adaptation under CC BY-SA 4.0. Original download retains its license; see MEDIA_LICENSE.md."
+    },
+    {
+      "id": "world",
+      "file": "assets/world-50m.topo.json",
+      "kind": "topojson",
+      "role": "data",
+      "sourceUrl": "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json",
+      "acquired": "2026-10-03",
+      "author": "Natural Earth; world-atlas by Mike Bostock",
+      "license": "Natural Earth public domain; world-atlas ISC — https://www.naturalearthdata.com/about/terms-of-use/",
+      "originalFilename": "countries-50m.json",
+      "sha256": "04342cdc1e3016bcd7db1630de95684d67b79fe3c8c460321e87aef469502394",
+      "note": "Simplified 1:50m land/country geometry. Illustrative routes are not navigational charts."
+    }
+  ],
+  "sources": [
+    {
+      "id": "demo",
+      "title": "Przykład graficzny — cena umowna, nie obserwacja rynkowa",
+      "url": "https://example.org/illustrative-demo",
+      "publisher": "Świadek Dziejów / demo",
+      "retrieved": "2026-10-03",
+      "note": "Internal illustrative fixture. URL is a reserved example domain; not an external factual source."
+    },
+    {
+      "id": "constitution",
+      "title": "Konstytucja RP: art. 118–122",
+      "url": "https://www.prezydent.pl/kancelaria/archiwum/andrzej-duda/prawo/konstytucja-rp/iv-sejm-i-senat",
+      "publisher": "Konstytucja RP",
+      "retrieved": "2026-10-03"
+    },
+    {
+      "id": "tax-law",
+      "title": "Art. 217 — podatki w drodze ustawy",
+      "url": "https://bip.brpo.gov.pl/pl/kategoria-konstytucyjna/art-217-zasady-nakladania-podatkow?page=2",
+      "publisher": "RPO / art. 217",
+      "retrieved": "2026-10-03"
+    },
+    {
+      "id": "eia-hormuz",
+      "title": "Hormuz: 20 mln baryłek dziennie w 2024 r.",
+      "url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+      "publisher": "EIA • 16.06.2025",
+      "retrieved": "2026-10-03",
+      "note": "Dated 2024 average; schematic routes, not measured ship counts."
+    },
+    {
+      "id": "eia-brent",
+      "title": "Europe Brent Spot Price FOB — monthly, I–VI 2024",
+      "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=M",
+      "publisher": "EIA • Brent 2024",
+      "retrieved": "2026-10-03",
+      "note": "Historical monthly USD/barrel. This series does not establish causality from Hormuz."
+    },
+    {
+      "id": "eia-process",
+      "title": "Oil and petroleum products explained",
+      "url": "https://www.eia.gov/energyexplained/oil-and-petroleum-products/",
+      "publisher": "EIA / petroleum",
+      "retrieved": "2026-10-03",
+      "note": "Supply-chain diagram is qualitative. No measured component weights."
+    },
+    {
+      "id": "portraits",
+      "title": "Fotografie archiwalne instytucji — osoby pełniące funkcje w 2024 r.",
+      "url": "https://commons.wikimedia.org/wiki/File:Donald_Tusk_KPRM_HQ.jpg",
+      "publisher": "KPRM / KPRP • archiwum",
+      "retrieved": "2026-10-03",
+      "note": "Separate image provenance for each portrait in assets. Historical roles, not a statement about current officeholders."
+    },
+    {
+      "id": "gallery-data",
+      "title": "Durations read from local demo-fuel-prices/project.json",
+      "url": "https://example.org/local-project/demo-fuel-prices",
+      "publisher": "Projekt demo / pomiar osi czasu",
+      "retrieved": "2026-10-03",
+      "note": "Internal fixture URL; actual source is the checked-in sibling project manifest, no external research implied."
+    }
+  ],
+  "claims": [],
+  "datasets": [
+    {
+      "id": "brent-2024",
+      "title": "Brent • I–VI 2024",
+      "sourceIds": ["eia-brent"],
+      "unit": "USD / baryłkę",
+      "status": "verified",
+      "points": [
+        {
+          "x": 1,
+          "y": 80.12,
+          "label": "STY"
+        },
+        {
+          "x": 2,
+          "y": 83.48,
+          "label": "LUT"
+        },
+        {
+          "x": 3,
+          "y": 85.41,
+          "label": "MAR"
+        },
+        {
+          "x": 4,
+          "y": 89.94,
+          "label": "KWI"
+        },
+        {
+          "x": 5,
+          "y": 81.75,
+          "label": "MAJ"
+        },
+        {
+          "x": 6,
+          "y": 82.25,
+          "label": "CZE"
+        }
+      ],
+      "note": "All six observations in selected continuous period. Not Polish retail price and not causal attribution."
+    },
+    {
+      "id": "demo-duration",
+      "title": "Czas ujęć demonstracji",
+      "sourceIds": ["gallery-data"],
+      "unit": "s",
+      "status": "verified",
+      "points": [
+        {
+          "x": 0,
+          "y": 2.7,
+          "label": "CENA"
+        },
+        {
+          "x": 1,
+          "y": 3,
+          "label": "INSTYTUCJE"
+        },
+        {
+          "x": 2,
+          "y": 2.4,
+          "label": "PRAWO"
+        },
+        {
+          "x": 3,
+          "y": 4.5,
+          "label": "ŁAŃCUCH"
+        },
+        {
+          "x": 4,
+          "y": 3.5,
+          "label": "MAPA"
+        },
+        {
+          "x": 5,
+          "y": 3.5,
+          "label": "BRENT"
+        }
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "photo",
+      "start": 0,
+      "end": 4,
+      "title": "Fotografia jest świadectwem",
+      "kicker": "BIBLIOTEKA / PHOTO",
+      "mode": "CONTEXT",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": ["portraits"],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "type": "photo",
+      "asset": "tusk",
+      "caption": "Donald Tusk • fotografia KPRM z 2023 r. • archiwum",
+      "focus": [0.5, 0.25],
+      "treatment": "archive"
+    },
+    {
+      "id": "timeline",
+      "start": 4,
+      "end": 8,
+      "title": "Opowieść w kolejnych etapach",
+      "kicker": "BIBLIOTEKA / TIMELINE",
+      "subtitle": "Oś redakcyjna: odległości nie oznaczają czasu historycznego.",
+      "mode": "CONTEXT",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": [],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "type": "timeline",
+      "events": [
+        {
+          "date": "01",
+          "label": "NARRACJA",
+          "detail": "czas jako punkt odniesienia"
+        },
+        {
+          "date": "02",
+          "label": "DOWODY",
+          "detail": "źródła i lokalne zasoby"
+        },
+        {
+          "date": "03",
+          "label": "OBRAZ",
+          "detail": "sceny i przejścia"
+        },
+        {
+          "date": "04",
+          "label": "KONTROLA",
+          "detail": "render, inspekcja, rewizja"
+        }
+      ]
+    },
+    {
+      "id": "statistic",
+      "start": 8,
+      "end": 12,
+      "title": "Jedna wielkość. Czytelna skala.",
+      "kicker": "BIBLIOTEKA / BIG STATISTIC",
+      "mode": "SCALE",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": ["eia-hormuz"],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "type": "statistic",
+      "value": 20,
+      "from": 0,
+      "decimals": 0,
+      "unit": "mln b/d",
+      "label": "Przepływ ropy przez Ormuz • średnia w 2024 r.",
+      "variant": "editorial"
+    },
+    {
+      "id": "comparison",
+      "start": 12,
+      "end": 16,
+      "title": "Porównuj na wspólnej podstawie",
+      "kicker": "BIBLIOTEKA / COMPARISON",
+      "mode": "CONTRAST",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": ["eia-brent"],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "type": "comparison",
+      "left": {
+        "label": "STYCZEŃ 2024",
+        "value": 80.12,
+        "detail": "Średnia miesięczna"
+      },
+      "right": {
+        "label": "KWIECIEŃ 2024",
+        "value": 89.94,
+        "detail": "Średnia miesięczna"
+      },
+      "unit": "USD / baryłkę",
+      "dataset": "brent-2024"
+    },
+    {
+      "id": "bars",
+      "start": 16,
+      "end": 20,
+      "title": "Czas w sześciu ujęciach",
+      "kicker": "BIBLIOTEKA / BAR CHART",
+      "mode": "SCALE",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": ["gallery-data"],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "type": "bar-chart",
+      "dataset": "demo-duration",
+      "xLabel": "UJĘCIA DEMONSTRACJI",
+      "yLabel": "SEKUNDY"
+    },
+    {
+      "id": "parts",
+      "start": 20,
+      "end": 24,
+      "title": "Te same dane, nowy kontekst",
+      "kicker": "BIBLIOTEKA / BREAKDOWN",
+      "mode": "SCALE",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": ["gallery-data"],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "transition": {
+        "type": "bar-to-layer",
+        "duration": 0.8,
+        "reason": "Długość każdego ujęcia staje się udziałem w całym filmie.",
+        "anchor": [0.5, 0.55]
+      },
+      "type": "breakdown",
+      "dataset": "demo-duration",
+      "totalLabel": "Całkowity czas demonstracji",
+      "orientation": "horizontal"
+    },
+    {
+      "id": "globe",
+      "start": 24,
+      "end": 28,
+      "title": "Geografia zyskuje głębię",
+      "kicker": "ROZSZERZENIE / THREE.JS",
+      "mode": "CONTEXT",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": [],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "type": "custom",
+      "renderer": "globe",
+      "props": {
+        "asset": "world",
+        "fromLongitude": 0,
+        "toLongitude": 56,
+        "latitude": 24
+      }
+    },
+    {
+      "id": "canvas",
+      "start": 28,
+      "end": 32,
+      "title": "Przepływ jako metafora",
+      "kicker": "ROZSZERZENIE / CANVAS",
+      "subtitle": "Ilustracja proceduralna • cząstki nie przedstawiają danych.",
+      "mode": "METAPHOR",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": [],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "type": "custom",
+      "renderer": "particle-flow",
+      "props": {
+        "count": 160
+      }
+    },
+    {
+      "id": "html",
+      "start": 32,
+      "end": 36,
+      "title": "Typografia i dokumenty HTML",
+      "kicker": "ROZSZERZENIE / DOM",
+      "mode": "EVIDENCE",
+      "thesis": "Każda receptura korzysta z tej samej absolutnej osi czasu.",
+      "addedInformation": "Galeria przedstawia gotowe receptury i sposoby rozszerzania silnika.",
+      "sourceIds": [],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 0.5,
+          "label": "Wprowadzenie"
+        },
+        {
+          "at": 2,
+          "label": "Rozwinięcie"
+        }
+      ],
+      "type": "custom",
+      "renderer": "document-dom",
+      "props": {
+        "heading": "To jest prawdziwa warstwa HTML.",
+        "body": "Scena może łączyć układ dokumentu, wektorowe adnotacje i grafikę przestrzenną. Każdy stan wyznacza czas, a render czeka na gotowość warstw."
+      }
+    }
+  ]
+}

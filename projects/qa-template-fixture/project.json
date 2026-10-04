@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "id": "qa-template-fixture",
+  "title": "qa template fixture",
+  "language": "pl-PL",
+  "seed": 1,
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "fps": 30,
+  "duration": 5,
+  "theme": "editorial",
+  "narration": {
+    "kind": "silent-demo",
+    "note": "Replace with recorded narration. This template is a working preview only."
+  },
+  "assets": [],
+  "sources": [],
+  "claims": [],
+  "datasets": [],
+  "scenes": [
+    {
+      "id": "opening",
+      "start": 0,
+      "end": 5,
+      "title": "Od przyczyny do skutku",
+      "kicker": "SZABLON / MECHANIZM",
+      "mode": "METAPHOR",
+      "thesis": "To miejsce na mechanizm wynikający z narracji.",
+      "addedInformation": "Zastąp etykiety konkretnym wyjaśnieniem po analizie nagrania.",
+      "sourceIds": [],
+      "claimIds": [],
+      "beats": [
+        {
+          "at": 1,
+          "label": "Przyczyna"
+        },
+        {
+          "at": 2.5,
+          "label": "Zależność"
+        }
+      ],
+      "type": "flow",
+      "nodes": [
+        {
+          "id": "cause",
+          "label": "PRZYCZYNA"
+        },
+        {
+          "id": "effect",
+          "label": "SKUTEK"
+        }
+      ],
+      "edges": [
+        {
+          "from": "cause",
+          "to": "effect"
+        }
+      ]
+    }
+  ]
+}

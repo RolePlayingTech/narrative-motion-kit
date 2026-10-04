@@ -1,0 +1,9 @@
+* text=auto eol=lf
+
+# Asset manifests verify exact file bytes, including geographic JSON.
+projects/*/assets/** -text
+projects/*/narration/** -text
+*.png -text
+*.jpg -text
+*.mp4 -text
+*.wav -text

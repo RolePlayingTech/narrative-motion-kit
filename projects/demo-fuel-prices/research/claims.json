@@ -1,0 +1,53 @@
+[
+  {
+    "id": "illustrative-price",
+    "text": "6,49 zł/l is an illustrative pump display, not a market observation.",
+    "sourceIds": ["demo"],
+    "status": "illustrative",
+    "confidence": "high",
+    "numericData": [6.49],
+    "usedInScenes": ["pump"]
+  },
+  {
+    "id": "legal-roles",
+    "text": "Both government and president may initiate legislation; the parliamentary procedure and president’s constitutional powers matter.",
+    "sourceIds": ["constitution"],
+    "status": "verified",
+    "confidence": "high",
+    "usedInScenes": ["institutions"]
+  },
+  {
+    "id": "tax-statute",
+    "text": "The essential tax matters listed in Article 217 are regulated by statute.",
+    "sourceIds": ["tax-law"],
+    "status": "verified",
+    "confidence": "high",
+    "usedInScenes": ["legal-evidence"]
+  },
+  {
+    "id": "supply",
+    "text": "Refining and transport connect crude oil to consumer fuels; diagram is qualitative.",
+    "sourceIds": ["eia-process"],
+    "status": "interpretation",
+    "confidence": "high",
+    "usedInScenes": ["supply-chain"]
+  },
+  {
+    "id": "hormuz-scale",
+    "text": "Hormuz oil flow averaged 20 million barrels/day in 2024, approximately 20% of global petroleum liquids consumption.",
+    "sourceIds": ["eia-hormuz"],
+    "status": "estimate",
+    "confidence": "high",
+    "numericData": [20, 20],
+    "usedInScenes": ["hormuz"]
+  },
+  {
+    "id": "brent-history",
+    "text": "Monthly Brent spot prices rose and fell between January and June 2024.",
+    "sourceIds": ["eia-brent"],
+    "status": "verified",
+    "confidence": "high",
+    "numericData": [80.12, 83.48, 85.41, 89.94, 81.75, 82.25],
+    "usedInScenes": ["brent"]
+  }
+]

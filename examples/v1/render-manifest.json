@@ -1,0 +1,25 @@
+{
+  "project": "demo-fuel-prices",
+  "fingerprint": "28a62f80f12cd3c4c59c6ce4284894e3f0db12fce02a9ce71061f0d5c8f7e32a",
+  "environment": {
+    "node": "v22.14.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "osRelease": "10.0.26200",
+    "chromium": "153.0.8010.12",
+    "playwright": "1.63.0",
+    "ffmpeg": "ffmpeg version N-121938-g2456a39581-20251130 Copyright (c) 2000-2025 the FFmpeg developers",
+    "ffmpegBuildSha256": "e470f1b615ab6e5561ac2479d786a1a7221389651f404bc5d658e73e2d1b52ba",
+    "ffprobe": "ffprobe version N-121938-g2456a39581-20251130 Copyright (c) 2007-2025 the FFmpeg developers"
+  },
+  "settings": {
+    "from": 0,
+    "to": 19.6,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "frameCount": 588
+  },
+  "output": "C:\\repos\\motion-lib\\projects\\demo-fuel-prices\\renders\\final\\demo-fuel-prices.mp4",
+  "audio": "narration/narration.wav"
+}

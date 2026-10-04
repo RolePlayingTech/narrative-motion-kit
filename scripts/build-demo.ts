@@ -1,0 +1,594 @@
+/** Rebuild the example metadata and narration from locally cached source assets. */
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { parseProject } from '../packages/schema/index';
+
+const root = join(import.meta.dirname, '..'),
+  directory = join(root, 'projects', 'demo-fuel-prices');
+const durations = [2.7, 3, 2.4, 4.5, 3.5, 3.5];
+const starts = durations.map((_, i) =>
+  Number(
+    durations
+      .slice(0, i)
+      .reduce((a, b) => a + b, 0)
+      .toFixed(6),
+  ),
+);
+const duration = Number(durations.reduce((a, b) => a + b, 0).toFixed(6));
+const texts = JSON.parse(
+  (await readFile(join(directory, 'narration', 'segments.json'), 'utf8')).replace(/^\uFEFF/, ''),
+) as string[];
+const filters = durations.map(
+  (d, i) => `[${i}:a]apad,atrim=duration=${d},asetpts=PTS-STARTPTS[a${i}]`,
+);
+filters.push(
+  durations.map((_, i) => `[a${i}]`).join('') + `concat=n=${durations.length}:v=0:a=1[out]`,
+);
+const ffmpeg = spawnSync(
+  'ffmpeg',
+  [
+    '-y',
+    '-hide_banner',
+    '-loglevel',
+    'error',
+    ...durations.flatMap((_, i) => ['-i', join(directory, 'narration', `segment-${i}.wav`)]),
+    '-filter_complex',
+    filters.join(';'),
+    '-map',
+    '[out]',
+    '-ar',
+    '48000',
+    '-c:a',
+    'pcm_s16le',
+    join(directory, 'narration', 'narration.wav'),
+  ],
+  { encoding: 'utf8', windowsHide: true },
+);
+if (ffmpeg.status !== 0) throw new Error(ffmpeg.stderr);
+for (const folder of ['transcript', 'research', 'data', 'scenes', 'generated', 'renders'])
+  await mkdir(join(directory, folder), { recursive: true });
+await writeFile(join(directory, 'transcript', 'narration.txt'), texts.join('\n') + '\n');
+await writeFile(
+  join(directory, 'transcript', 'phrases.json'),
+  JSON.stringify(
+    {
+      provider: 'supplied',
+      alignment: 'phrase-boundaries-from-synthesis',
+      segments: texts.map((text, i) => ({ start: starts[i], end: starts[i] + durations[i], text })),
+    },
+    null,
+    2,
+  ),
+);
+const hash = async (name: string) =>
+  createHash('sha256')
+    .update(await readFile(join(directory, 'assets', name)))
+    .digest('hex');
+const retrieved = '2026-10-03';
+const sources = [
+  {
+    id: 'natural-earth',
+    title: 'Natural Earth 1:10m countries — local Gulf region',
+    publisher: 'Natural Earth',
+    url: 'https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/',
+    retrieved: '2026-10-04',
+    note: 'Public-domain geographic polygons; see research/map-provenance.json. Route is schematic, not a navigation track.',
+  },
+  {
+    id: 'demo',
+    title: 'Przykład graficzny — cena umowna, nie obserwacja rynkowa',
+    publisher: 'Świadek Dziejów / demo',
+    url: 'https://example.org/illustrative-demo',
+    retrieved,
+    note: 'Internal illustrative fixture. URL is a reserved example domain; not an external factual source.',
+  },
+  {
+    id: 'constitution',
+    title: 'Konstytucja RP: art. 118–122',
+    publisher: 'Konstytucja RP',
+    url: 'https://www.prezydent.pl/kancelaria/archiwum/andrzej-duda/prawo/konstytucja-rp/iv-sejm-i-senat',
+    retrieved,
+  },
+  {
+    id: 'tax-law',
+    title: 'Art. 217 — podatki w drodze ustawy',
+    publisher: 'RPO / art. 217',
+    url: 'https://bip.brpo.gov.pl/pl/kategoria-konstytucyjna/art-217-zasady-nakladania-podatkow?page=2',
+    retrieved,
+  },
+  {
+    id: 'eia-hormuz',
+    title: 'Hormuz: 20 mln baryłek dziennie w 2024 r.',
+    publisher: 'EIA • 16.06.2025',
+    url: 'https://www.eia.gov/todayinenergy/detail.php?id=65504',
+    retrieved,
+    note: 'Dated 2024 average; schematic routes, not measured ship counts.',
+  },
+  {
+    id: 'eia-brent',
+    title: 'Europe Brent Spot Price FOB — monthly, I–VI 2024',
+    publisher: 'EIA • Brent 2024',
+    url: 'https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=M',
+    retrieved,
+    note: 'Historical monthly USD/barrel. This series does not establish causality from Hormuz.',
+  },
+  {
+    id: 'eia-process',
+    title: 'Oil and petroleum products explained',
+    publisher: 'EIA / petroleum',
+    url: 'https://www.eia.gov/energyexplained/oil-and-petroleum-products/',
+    retrieved,
+    note: 'Supply-chain diagram is qualitative. No measured component weights.',
+  },
+  {
+    id: 'portraits',
+    title: 'Fotografie archiwalne instytucji — osoby pełniące funkcje w 2024 r.',
+    publisher: 'KPRM / KPRP • archiwum',
+    url: 'https://commons.wikimedia.org/wiki/File:Donald_Tusk_KPRM_HQ.jpg',
+    retrieved,
+    note: 'Separate image provenance for each portrait in assets. Historical roles, not a statement about current officeholders.',
+  },
+];
+const project = {
+  version: 1,
+  id: 'demo-fuel-prices',
+  title: 'Cena paliwa. Dwa porządki, jeden rachunek.',
+  language: 'pl-PL',
+  seed: 1945,
+  resolution: { width: 1920, height: 1080 },
+  fps: 30,
+  duration,
+  theme: 'reportage',
+  narration: {
+    file: 'narration/narration.wav',
+    transcript: 'transcript/phrases.json',
+    kind: 'synthetic',
+    note: 'Microsoft Paulina Desktop, local Windows TTS. Original demo script. Synthetic narration, not an imitation of a real person.',
+  },
+  assets: [
+    {
+      id: 'hormuz-geography',
+      file: 'assets/hormuz-natural-earth-10m.geojson',
+      kind: 'geojson',
+      role: 'data',
+      sourceUrl:
+        'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_admin_0_countries.geojson',
+      acquired: '2026-10-04',
+      author: 'Natural Earth contributors',
+      license: 'Public domain — https://www.naturalearthdata.com/about/terms-of-use/',
+      sha256: await hash('hormuz-natural-earth-10m.geojson'),
+      note: 'Full polygon components intersecting 40–68E/14–35N, no simplification; provenance in research/map-provenance.json.',
+    },
+    {
+      id: 'tusk',
+      file: 'assets/tusk.jpg',
+      kind: 'image',
+      role: 'documentary',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Donald_Tusk_KPRM_HQ.jpg',
+      acquired: retrieved,
+      author: 'Kancelaria Prezesa Rady Ministrów / Gov.pl',
+      license: 'CC BY 3.0 PL — https://creativecommons.org/licenses/by/3.0/pl/',
+      originalFilename: 'Donald Tusk KPRM HQ.jpg',
+      sha256: await hash('tusk.jpg'),
+      width: 1280,
+      height: 1680,
+      note: 'Portrait dated 19 December 2023, English-language Gov.pl licensed version. Screen crop and equal color treatment. Original source https://www.gov.pl/web/primeminister/donald-tusk',
+    },
+    {
+      id: 'duda',
+      file: 'assets/duda.jpg',
+      kind: 'image',
+      role: 'documentary',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Andrzej_Duda_Official_Portrait.jpg',
+      acquired: retrieved,
+      author: 'Jakub Szymczuk / Kancelaria Prezydenta RP (Commons attribution)',
+      license: 'CC BY-SA 4.0 — https://creativecommons.org/licenses/by-sa/4.0/',
+      originalFilename: 'Andrzej Duda Official Portrait.jpg',
+      sha256: await hash('duda.jpg'),
+      width: 2096,
+      height: 2333,
+      note: 'Portrait dated 7 January 2019. Display crop/overlay adaptation under CC BY-SA 4.0. Original download retains its license; see MEDIA_LICENSE.md.',
+    },
+    {
+      id: 'world',
+      file: 'assets/world-50m.topo.json',
+      kind: 'topojson',
+      role: 'data',
+      sourceUrl: 'https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json',
+      acquired: retrieved,
+      author: 'Natural Earth; world-atlas by Mike Bostock',
+      license:
+        'Natural Earth public domain; world-atlas ISC — https://www.naturalearthdata.com/about/terms-of-use/',
+      originalFilename: 'countries-50m.json',
+      sha256: await hash('world-50m.topo.json'),
+      note: 'Simplified 1:50m land/country geometry. Illustrative routes are not navigational charts.',
+    },
+  ],
+  sources,
+  claims: [
+    {
+      id: 'illustrative-price',
+      text: '6,49 zł/l is an illustrative pump display, not a market observation.',
+      sourceIds: ['demo'],
+      status: 'illustrative',
+      confidence: 'high',
+      usedInScenes: ['pump'],
+      numericData: [6.49],
+    },
+    {
+      id: 'legal-roles',
+      text: 'Both government and president may initiate legislation; the parliamentary procedure and president’s constitutional powers matter.',
+      sourceIds: ['constitution'],
+      status: 'verified',
+      confidence: 'high',
+      usedInScenes: ['institutions'],
+    },
+    {
+      id: 'tax-statute',
+      text: 'The essential tax matters listed in Article 217 are regulated by statute.',
+      sourceIds: ['tax-law'],
+      status: 'verified',
+      confidence: 'high',
+      usedInScenes: ['legal-evidence'],
+    },
+    {
+      id: 'supply',
+      text: 'Refining and transport connect crude oil to consumer fuels; diagram is qualitative.',
+      sourceIds: ['eia-process'],
+      status: 'interpretation',
+      confidence: 'high',
+      usedInScenes: ['supply-chain'],
+    },
+    {
+      id: 'hormuz-scale',
+      text: 'Hormuz oil flow averaged 20 million barrels/day in 2024, approximately 20% of global petroleum liquids consumption.',
+      sourceIds: ['eia-hormuz'],
+      status: 'estimate',
+      confidence: 'high',
+      usedInScenes: ['hormuz'],
+      numericData: [20, 20],
+    },
+    {
+      id: 'brent-history',
+      text: 'Monthly Brent spot prices rose and fell between January and June 2024.',
+      sourceIds: ['eia-brent'],
+      status: 'verified',
+      confidence: 'high',
+      usedInScenes: ['brent'],
+      numericData: [80.12, 83.48, 85.41, 89.94, 81.75, 82.25],
+    },
+  ],
+  datasets: [
+    {
+      id: 'brent-2024',
+      title: 'Brent • I–VI 2024',
+      sourceIds: ['eia-brent'],
+      unit: 'USD / baryłkę',
+      status: 'verified',
+      points: [80.12, 83.48, 85.41, 89.94, 81.75, 82.25].map((y, i) => ({
+        x: i + 1,
+        y,
+        label: ['STY', 'LUT', 'MAR', 'KWI', 'MAJ', 'CZE'][i],
+      })),
+      note: 'All six observations in selected continuous period. Not Polish retail price and not causal attribution.',
+    },
+  ],
+  scenes: [
+    {
+      id: 'pump',
+      type: 'statistic',
+      start: 0,
+      end: 2.7,
+      title: 'Cena paliwa. Co jest pod spodem?',
+      kicker: 'ANATOMIA CENY',
+      subtitle: 'Jedna liczba. Wiele mechanizmów.',
+      mode: 'SCALE',
+      thesis: 'Cena na stacji jest wynikiem łańcucha decyzji i kosztów.',
+      addedInformation: 'Rozdzielamy mechanizmy krajowe od międzynarodowego rynku.',
+      sourceIds: ['demo'],
+      claimIds: ['illustrative-price'],
+      value: 6.49,
+      from: 5.79,
+      decimals: 2,
+      unit: 'zł / litr',
+      label: 'Cena umowna · przykład graficzny',
+      variant: 'pump',
+      beats: [
+        { at: 0.7, label: 'Cena przykładowa na dystrybutorze' },
+        { at: 1.5, label: 'Pytanie o mechanizmy' },
+      ],
+    },
+    {
+      id: 'institutions',
+      type: 'portrait-duel',
+      start: 2.7,
+      end: 5.7,
+      title: 'Polityka ma swoje granice',
+      kicker: 'POLSKA / ARCHIWUM 2024',
+      subtitle: 'Dwie instytucje. Określone kompetencje.',
+      mode: 'CONTRAST',
+      thesis: 'Ani rząd, ani prezydent nie zmienia podatku samą deklaracją.',
+      addedInformation: 'Obie instytucje mają inicjatywę ustawodawczą; rolę odgrywa też parlament.',
+      sourceIds: ['constitution', 'portraits'],
+      claimIds: ['legal-roles'],
+      left: {
+        asset: 'tusk',
+        name: 'Donald Tusk',
+        role: 'Rząd • kontekst 2024',
+        position: [0.5, 0.1],
+        crop: [0, 0, 1, 1],
+      },
+      right: {
+        asset: 'duda',
+        name: 'Andrzej Duda',
+        role: 'Prezydent • kontekst 2024',
+        position: [0.5, 0.2],
+        crop: [0.2, 0, 0.56, 0.62],
+      },
+      centerLabel: 'PROJEKT USTAWY → PARLAMENT → DECYZJA PREZYDENTA',
+      transition: {
+        type: 'match-cut',
+        duration: 0.35,
+        reason: 'Pytanie o cenę przechodzi w porównanie kompetencji instytucji.',
+        anchor: [0.5, 0.5],
+      },
+      beats: [
+        { at: 0.5, label: 'Równa ekspozycja obu instytucji' },
+        { at: 1.6, label: 'Wspólna granica prawna' },
+      ],
+    },
+    {
+      id: 'legal-evidence',
+      type: 'evidence',
+      tone: 'paper',
+      start: 5.7,
+      end: 8.1,
+      title: 'Podatek wymaga ustawy',
+      kicker: 'DOWÓD / ART. 217',
+      mode: 'EVIDENCE',
+      thesis: 'Kompetencje polityczne muszą przełożyć się na podstawę ustawową.',
+      addedInformation: 'Istotne elementy podatku określa ustawa, nie samo wystąpienie polityka.',
+      sourceIds: ['tax-law'],
+      claimIds: ['tax-statute'],
+      heading: 'ARTYKUŁ 217',
+      documentLabel: 'KONSTYTUCJA RP · SKRÓCONY FRAGMENT',
+      body: ['Nakładanie podatków, innych danin publicznych, […]'],
+      highlight: '[…] następuje w drodze ustawy.',
+      attribution: 'Art. 217 • skrócony fragment; pominięcia oznaczono […]',
+      transition: {
+        type: 'focus-through',
+        duration: 0.45,
+        reason: 'Wspólna reguła między instytucjami staje się dokumentem źródłowym.',
+        anchor: [0.5, 0.64],
+      },
+      beats: [
+        { at: 0.55, label: 'Podstawa konstytucyjna' },
+        { at: 0.65, label: 'Podkreślenie mechanizmu ustawowego' },
+      ],
+    },
+    {
+      id: 'supply-chain',
+      type: 'flow',
+      start: 8.1,
+      end: 12.6,
+      title: 'Od ropy do dystrybutora',
+      kicker: 'MECHANIZM / RYNEK',
+      subtitle: 'Cena surowca to dopiero początek.',
+      mode: 'MECHANISM',
+      thesis: 'Między surowcem a konsumentem istnieje łańcuch przetwarzania i dostaw.',
+      addedInformation:
+        'Cena ropy nie jest ceną gotowego paliwa; rafinacja i logistyka łączą te rynki.',
+      sourceIds: ['eia-process'],
+      claimIds: ['supply'],
+      nodes: [
+        { id: 'crude', label: 'SUROWIEC', detail: 'rynek ropy', icon: 'oil' },
+        { id: 'refinery', label: 'RAFINERIA', detail: 'przetwarzanie', icon: 'refinery' },
+        { id: 'transport', label: 'TRANSPORT', detail: 'dostawy', icon: 'ship' },
+        { id: 'consumer', label: 'STACJA', detail: 'gotowe paliwo', icon: 'pump' },
+      ],
+      edges: [
+        { from: 'crude', to: 'refinery' },
+        { from: 'refinery', to: 'transport' },
+        { from: 'transport', to: 'consumer' },
+      ],
+      transition: {
+        type: 'focus-through',
+        duration: 0.45,
+        reason: 'Z prawnej podstawy ceny przechodzimy do jej mechanizmu gospodarczego.',
+        anchor: [0.5, 0.65],
+      },
+      beats: [
+        { at: 0.4, label: 'Surowiec' },
+        { at: 1.3, label: 'Przetwarzanie' },
+        { at: 2.2, label: 'Logistyka' },
+        { at: 3.1, label: 'Konsument' },
+      ],
+    },
+    {
+      id: 'hormuz',
+      type: 'geo-flow',
+      start: 12.6,
+      end: 16.1,
+      title: 'Ormuz. Wąskie gardło rynku',
+      kicker: 'GEOGRAFIA / ORMUZ',
+      subtitle: 'Między Iranem a Omanem · dane za 2024 rok',
+      tone: 'paper',
+      mode: 'CONTEXT',
+      thesis: 'Znacząca część światowego przepływu ropy przechodzi przez niewielki obszar.',
+      addedInformation:
+        'Około 20% światowego zużycia paliw płynnych odpowiadało przepływowi przez Ormuz w 2024 r.',
+      sourceIds: ['eia-hormuz', 'natural-earth'],
+      claimIds: ['hormuz-scale'],
+      asset: 'hormuz-geography',
+      locatorAsset: 'world',
+      composition: 'atlas',
+      cartographyLabel: 'NATURAL EARTH 1:10 MLN · TRASA SCHEMATYCZNA',
+      center: [56.4, 26.1],
+      zoom: 36,
+      fromCenter: [55.5, 26.5],
+      fromZoom: 22,
+      routes: [
+        {
+          id: 'gulf-route',
+          surface: 'sea',
+          points: [
+            [52, 26.6],
+            [53.5, 26.2],
+            [54.7, 25.8],
+            [55.5, 26.1],
+            [56.2, 26.55],
+            [56.65, 26.35],
+            [56.9, 25.85],
+            [58.0, 25.0],
+            [60.0, 24.2],
+          ],
+          label: 'ZATOKA PERSKA → MORZE ARABSKIE',
+          strength: 1,
+        },
+      ],
+      places: [
+        { name: 'IRAN', coordinates: [57.8, 27.65], kind: 'country' },
+        { name: 'OMAN', coordinates: [56.8, 24.4], kind: 'country' },
+        { name: 'ZEA', coordinates: [54.5, 24.1], kind: 'country' },
+        { name: 'Zatoka Perska', coordinates: [53.6, 26.5], kind: 'water' },
+        { name: 'Zatoka Omańska', coordinates: [58.7, 25.35], kind: 'water' },
+        { name: 'ORMUZ', coordinates: [56.45, 26.55], emphasis: true, offset: [45, -60] },
+      ],
+      metric: {
+        value: '≈20%',
+        label: 'światowego zużycia paliw płynnych',
+        context: '20 mln baryłek / dzień · 2024',
+      },
+      transition: {
+        type: 'match-cut',
+        duration: 0.3,
+        reason: 'Połączenie transportowe z diagramu nabiera położenia geograficznego.',
+        anchor: [0.5, 0.5],
+      },
+      beats: [
+        { at: 0.35, label: 'Lokalizacja Zatoki Perskiej' },
+        { at: 0.75, label: 'Cieśnina Ormuz' },
+        { at: 0.9, label: 'Skala przepływu w 2024 r.' },
+      ],
+    },
+    {
+      id: 'brent',
+      type: 'line-chart',
+      tone: 'paper',
+      start: 16.1,
+      end: duration,
+      title: 'Cena ropy nie rośnie bez końca',
+      kicker: 'DANE / BRENT 2024',
+      subtitle: 'Brent · pierwsze półrocze 2024 · USD za baryłkę',
+      mode: 'SCALE',
+      thesis: 'Cena surowca może rosnąć i spadać w tym samym półroczu.',
+      addedInformation:
+        'Pokazujemy pełne sześć miesięcy, wraz z odwróceniem wzrostu; mapa nie dowodzi przyczyny tej zmiany.',
+      sourceIds: ['eia-brent'],
+      claimIds: ['brent-history'],
+      dataset: 'brent-2024',
+      xLabel: '2024 / ŚREDNIE MIESIĘCZNE',
+      yLabel: 'USD / BARYŁKĘ',
+      yDomain: [70, 95],
+      annotation: { index: 3, text: '89,94 USD' },
+      transition: {
+        type: 'route-to-line',
+        duration: 0.6,
+        reason:
+          'Linia szlaku zmienia się w linię notowań; połączenie pojęć, nie dowód przyczynowości.',
+        anchor: [0.5, 0.5],
+      },
+      beats: [
+        { at: 0.5, label: 'Początek półrocza' },
+        { at: 1.3, label: 'Szczyt w kwietniu' },
+        { at: 1.72, label: 'Spadek w maju' },
+        { at: 2.1, label: 'Pełny zakres półrocza' },
+      ],
+    },
+  ],
+};
+const parsed = parseProject(project);
+await writeFile(join(directory, 'project.json'), JSON.stringify(parsed, null, 2) + '\n');
+await writeFile(
+  join(directory, 'data', 'brent-2024.csv'),
+  'month,usd_per_barrel\n' +
+    parsed.datasets[0].points.map((p) => `2024-${String(p.x).padStart(2, '0')},${p.y}`).join('\n') +
+    '\n',
+);
+await writeFile(
+  join(directory, 'research', 'claims.json'),
+  JSON.stringify(parsed.claims, null, 2) + '\n',
+);
+await writeFile(
+  join(directory, 'scenes', 'storyboard.md'),
+  '# Storyboard\n\n' +
+    parsed.scenes
+      .map(
+        (s) =>
+          `## ${s.start.toFixed(1)}–${s.end.toFixed(1)} • ${s.id}\n\nNarration: ${texts[parsed.scenes.indexOf(s)]}\n\nVisual thesis: ${s.thesis}\n\nAdded information: ${s.addedInformation}\n\nTransition: ${s.transition?.reason ?? 'Opening question.'}\n`,
+      )
+      .join('\n'),
+);
+const template = join(root, 'projects', 'template');
+for (const folder of [
+  'narration',
+  'transcript',
+  'assets',
+  'generated',
+  'research',
+  'data',
+  'scenes',
+  'renders',
+]) {
+  await mkdir(join(template, folder), { recursive: true });
+  await writeFile(join(template, folder, '.gitkeep'), '');
+}
+await writeFile(
+  join(template, 'project.json'),
+  JSON.stringify(
+    parseProject({
+      version: 1,
+      id: 'template',
+      title: 'Nowy film',
+      seed: 1,
+      resolution: { width: 1920, height: 1080 },
+      fps: 30,
+      duration: 5,
+      theme: 'editorial',
+      language: 'pl-PL',
+      narration: {
+        kind: 'silent-demo',
+        note: 'Replace with recorded narration. This template is a working preview only.',
+      },
+      scenes: [
+        {
+          id: 'opening',
+          type: 'flow',
+          start: 0,
+          end: 5,
+          title: 'Od przyczyny do skutku',
+          kicker: 'SZABLON / MECHANIZM',
+          mode: 'METAPHOR',
+          thesis: 'To miejsce na mechanizm wynikający z narracji.',
+          addedInformation: 'Zastąp etykiety konkretnym wyjaśnieniem po analizie nagrania.',
+          nodes: [
+            { id: 'cause', label: 'PRZYCZYNA' },
+            { id: 'effect', label: 'SKUTEK' },
+          ],
+          edges: [{ from: 'cause', to: 'effect' }],
+          beats: [
+            { at: 1, label: 'Przyczyna' },
+            { at: 2.5, label: 'Zależność' },
+          ],
+        },
+      ],
+    }),
+    null,
+    2,
+  ) + '\n',
+);
+console.log(
+  `Demo built: ${duration}s, ${parsed.scenes.length} scenes. Narration is the master timeline.`,
+);

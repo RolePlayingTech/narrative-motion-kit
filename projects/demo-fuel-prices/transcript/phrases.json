@@ -1,0 +1,36 @@
+{
+  "provider": "supplied",
+  "alignment": "phrase-boundaries-from-synthesis",
+  "segments": [
+    {
+      "start": 0,
+      "end": 2.7,
+      "text": "Cena paliwa to koniec długiego łańcucha."
+    },
+    {
+      "start": 2.7,
+      "end": 5.7,
+      "text": "Rząd i prezydent działają w granicach prawa."
+    },
+    {
+      "start": 5.7,
+      "end": 8.1,
+      "text": "Podatki wymagają ustawy."
+    },
+    {
+      "start": 8.1,
+      "end": 12.6,
+      "text": "Surowiec, rafineria, transport. Każdy etap ma znaczenie."
+    },
+    {
+      "start": 12.6,
+      "end": 16.1,
+      "text": "Ormuz to jedna piąta światowego zużycia paliw płynnych."
+    },
+    {
+      "start": 16.1,
+      "end": 19.6,
+      "text": "A ropa drożeje, ale też tanieje."
+    }
+  ]
+}

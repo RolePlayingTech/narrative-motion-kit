@@ -1,0 +1,32 @@
+{
+  "narration": {
+    "kind": "synthetic",
+    "file": "narration.wav"
+  },
+  "version": 1,
+  "resolution": {
+    "width": 640,
+    "height": 360
+  },
+  "fps": 10,
+  "seed": 42,
+  "id": "toolchain-smoke",
+  "title": "Toolchain smoke",
+  "duration": 2.504308,
+  "scenes": [
+    {
+      "thesis": "One dominant visual thesis",
+      "addedInformation": "Evidence expands the narration",
+      "start": 0,
+      "attribution": "Test fixture",
+      "mode": "EVIDENCE",
+      "highlight": "Cena paliwa",
+      "type": "evidence",
+      "body": ["Cena paliwa ma wiele składników."],
+      "id": "evidence",
+      "title": "Dowód i kontekst",
+      "end": 2.504308,
+      "heading": "DOKUMENT"
+    }
+  ]
+}

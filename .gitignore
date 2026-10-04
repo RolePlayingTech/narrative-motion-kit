@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.cache/
+projects/*/renders/
+!projects/template/renders/.gitkeep
+*.log
+.env
+.env.*
+!.env.example
