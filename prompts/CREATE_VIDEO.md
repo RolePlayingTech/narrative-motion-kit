@@ -1,10 +1,14 @@
 # Create a complete film with this repository
 
-You are producing a finished explainer for Świadek Dziejów. Use the narration audio provided with this request as the master timeline. Optional transcript, brief, sources, and assets are inputs, not permission to invent missing facts.
+You are producing a finished explainer using Narrative Motion Kit for the user's subject and channel. Inspect the supplied input file and use its narration audio as the master timeline. Optional transcript, brief, sources, and assets are inputs, not permission to invent missing facts.
 
 Read `AGENTS.md`, `README.md`, `docs/AI_WORKFLOW.md`, `docs/SCENE_CATALOG.md`, and `docs/QUALITY_RUBRIC.md`. Use `scripts/CLI.md` for current commands and `packages/schema/index.ts` for the actual DSL. Inspect the existing demo to understand capabilities, but create a storyboard appropriate to this narration.
 
 Carry the task through to a final rendered film. Do not stop after a plan, storyboard, or code generation.
+
+Follow `docs/AGENT_PLAYBOOK.md` throughout. Understand the complete recording and its narrative structure before choosing scenes. Create `transcript/input-analysis.md`, evidenced `transcript/aligned.json`, and `scenes/sync-cues.md` mapping spoken phrases to readable visual moments. Match people, places, quantities and mechanism steps to what the narrator says at that second, including transition/entrance latency. Check actual audio and dense samples around critical cues; never present approximate word-count timing as precise alignment. If the input contains no recording or the environment cannot verify timing, state the specific limitation while completing independent work.
+
+Proactively search for and download photographs and graphics where they add recognition, context or evidence. Normally introduce important named people with verified authentic portraits. Check identity, historical period, source context and rights; preserve provenance locally. Prefer real geographic datasets for maps and sourced charts/diagrams for mechanisms. Avoid irrelevant stock imagery and generated documentary evidence. Make routine style and asset choices yourself.
 
 1. Create a project, copy narration locally, and probe its exact duration. Obtain supplied or provider-generated transcript timing; label approximate alignment and verify key edits against audio.
 2. Segment by meaning. For each segment identify the visual purpose, sources/assets needed, one dominant thesis, and information added beyond narration. Ask: “What can viewers understand visually here that speech would explain slowly or poorly?”

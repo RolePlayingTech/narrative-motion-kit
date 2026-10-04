@@ -29,6 +29,8 @@ No paid cloud service is required and no speech model is downloaded automaticall
 
 Word timestamps are optional. This abbreviated example illustrates format, not an actual aligned transcript. Check timestamps against listening; structural validation does not prove the words are correct or that silence detection found the desired edit.
 
+For production synchronization, follow [the agent playbook](AGENT_PLAYBOOK.md#2-establish-speech-timing-from-evidence): analyze the whole recording, verify critical names/numbers against audio, create `scenes/sync-cues.md`, and time readable visual moments rather than just entrance starts. Retain absolute offsets when aligning chunks. Document uncertain cues and unavailable listening tools; do not certify word-level precision from the approximate provider.
+
 ## Duration precision
 
 Audio duration can fall between video frames. Rendering uses enough frames to cover the audio and limits the encoded output to its target duration. QA allows the larger of one video frame or one AAC packet, plus a small mux tolerance. It is not possible to guarantee an arbitrary subframe visual endpoint in a constant-frame-rate video.

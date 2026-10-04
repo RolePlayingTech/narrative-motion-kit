@@ -2,6 +2,8 @@
 
 The deliverable is an encoded film, its sources, and an honest QA/review record. A storyboard is an intermediate artifact. Use the [CLI reference](../scripts/CLI.md) for exact arguments and the [project schema](../packages/schema/index.ts) for accepted fields.
 
+Start with the [agent playbook](AGENT_PLAYBOOK.md). It defines input-file analysis, whole-narration comprehension, phrase/word alignment, the speech-to-screen cue sheet, active image acquisition and soundtrack-based synchronization review. Use it for every new recording, not only when a transcript is supplied.
+
 ## 1. Establish the timeline
 
 Create a project from the template. Copy the user's recording into `narration/`, ingest it, and record ffprobe's duration. Obtain a supplied transcript or use a transcription provider. Preserve the original recording. Check the first and last spoken words against timestamps before composing scenes.

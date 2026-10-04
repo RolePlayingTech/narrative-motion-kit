@@ -25,6 +25,8 @@ The DSL uses these exact mode names. They are editorial labels, not alternate re
 
 For every interval write: narration phrase, visual purpose, scene type, primary object, subordinate information, source/claim IDs, entry and exit logic, camera intent, local reveal beats, and information gained. The DSL stores the renderable subset; a Markdown storyboard can preserve narration wording and editorial reasoning.
 
+Maintain a separate `scenes/sync-cues.md` using [the playbook's cue-sheet fields](AGENT_PLAYBOOK.md#3-build-a-speech-to-screen-cue-sheet). Link each meaningful visual change to verified speech timing, distinguish entry start from first readability, and record the observed offset after reviewing audio/video. This planning record is not loaded by the renderer; implement its timings using the supported scene controls.
+
 Example reasoning for a legal mechanism:
 
 - Spoken topic: “Politycy zapowiadają niższe podatki.”

@@ -51,7 +51,7 @@ For `portrait-duel`, each person's optional `crop` is `[x, y, width, height]` re
 
 ## Authored reveal timing
 
-`beats[].at` is scene-local time in seconds. Beats drive flow nodes, bar-chart categories, breakdown parts, and timeline events in their declared order. Supply one beat per item when the narration needs exact cues. The last beat controls the evidence highlight and geographic metric; the second beat controls a line-chart annotation. Reveal durations and the title entry remain component-specific; a beat marks a reveal's start, not its settled endpoint. A route or camera flight has its own timing.
+`beats[].at` is scene-local time in seconds. Beats drive flow nodes, bar-chart categories, breakdown parts, and timeline events in their declared order. Supply one beat per item when the narration needs exact cues. The last beat controls the evidence highlight and geographic metric; for line charts the final beat sets line completion and the second beat can cue an annotation, gated by its data point's reveal. Most beats mark reveal starts rather than settled endpoints; line completion is an exception. Reveal durations and title entry remain component-specific. A route or camera flight has its own timing.
 
 For example, the following three beats can cue a three-node flow:
 

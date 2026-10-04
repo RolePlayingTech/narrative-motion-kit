@@ -45,6 +45,14 @@ Wyniki trafiają do `projects/ID/renders/`. Film znajduje się w `renders/final/
 
 ## Jak powstaje film
 
+### Obsługa w całości przez agenta AI
+
+Dołącz plik z narracją i przekaż agentowi taką instrukcję:
+
+> Utwórz gotowy film z załączonego nagrania, korzystając z Narrative Motion Kit. Przeczytaj AGENTS.md, docs/AGENT_PLAYBOOK.md oraz prompts/CREATE_VIDEO.md. Przeanalizuj cały plik i konstrukcję wypowiedzi, ustal sprawdzone znaczniki czasu oraz bardzo dokładnie dopasuj obraz do tego, co lektor mówi w danej sekundzie. Samodzielnie wyszukuj i pobieraj wartościowe, autentyczne zdjęcia i grafiki, w tym portrety istotnych omawianych postaci. Dobierz stylistykę, sprawdź film z dźwiękiem, popraw synchronizację i kompozycję, a następnie dostarcz film, źródła i raport jakości.
+
+[Pełna instrukcja dla agenta](docs/AGENT_PLAYBOOK.md) obejmuje analizę wejścia, rozpoznanie struktury narracji, synchronizację słów z czytelnym obrazem, pobieranie materiałów i kontrolę gotowego filmu. Użytkownik dostarcza nagranie; agent prowadzi produkcję. Rozpoznawanie mowy i dokładne wyrównanie wymagają dostępnych agentowi narzędzi. Wbudowany podział czasu na podstawie liczby słów jest przybliżony i nie potwierdza dokładnej synchronizacji.
+
 Nagranie lektora wyznacza długość filmu. Sceny odpowiadają kolejnym ideom, a nie równym odcinkom czasu. Agent wybiera sposób przedstawienia treści, zbiera źródła i lokalne materiały, przygotowuje storyboard, renderuje próbki, ocenia je i poprawia projekt przed eksportem.
 
 1. Utwórz projekt i skopiuj nagranie do jego katalogu `narration/`.

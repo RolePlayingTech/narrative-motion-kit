@@ -9,6 +9,10 @@ Use the repository's implemented workflow to finish the requested film. This ski
 
 Read the repository [AGENTS.md](../../../AGENTS.md), [AI workflow](../../../docs/AI_WORKFLOW.md), and [scene catalog](../../../docs/SCENE_CATALOG.md). Consult [CLI commands](../../../scripts/CLI.md) rather than guessing flags. The [master prompt](../../../prompts/CREATE_VIDEO.md) describes the complete production deliverable.
 
+For each supplied input file, read [the agent playbook](../../../docs/AGENT_PLAYBOOK.md). Inspect the actual recording and its argument, establish verified phrase/critical-word timings, and create a speech-to-screen cue sheet. Align readable moments rather than just animation starts; validate critical cues with the soundtrack and review the timeline second by second. Plain-text duration allocation does not prove synchronization. Document unavailable listening/alignment capabilities instead of claiming checks you could not perform.
+
+Proactively acquire internet images when they improve recognition, explanation or evidence. Normally show important named people using authentic, identity-checked portraits. Verify source, period, context and reuse terms; cache originals and register provenance before rendering. A generated likeness is not documentary evidence. Use diagrams where they explain more than stock imagery.
+
 Preserve these production decisions:
 
 - Narration determines duration and semantic edits. Mark approximate alignment; inspect key phrases against audio.

@@ -14,6 +14,8 @@ Production media is local. Research may use the internet; final rendering must n
 
 Prefer official institutions, museums, archives, Wikimedia Commons, and other sources with usable rights. Search for story relevance, not only keyword resemblance. Check the individual file's license; a site's logo or government domain does not make every image freely reusable.
 
+The production agent should actively search for and acquire useful material, not wait for a complete asset pack from the user. Important named people normally merit an authentic portrait at their introduction. Verify identity and historical context, open the original, and associate the asset with its spoken cue. A passing mention can remain within the current explanation. See [the agent playbook](AGENT_PLAYBOOK.md#4-research-and-acquire-useful-images) for selection and fallback decisions.
+
 ## Manifest
 
 Each asset includes `id`, local `file`, `kind`, `role`, acquisition date, and a meaningful `license` or usage note. Preserve `sourceUrl`, `author`, `originalFilename`, dimensions, and SHA-256 when known. Use `note` for modifications, crop rationale, restrictions, and verification details.

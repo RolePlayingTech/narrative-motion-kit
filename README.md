@@ -50,6 +50,14 @@ Outputs are under `projects/PROJECT_ID/renders/`. The final video is `renders/fi
 
 ## Make a film
 
+### Using an AI agent
+
+Attach your narration file and give the agent this instruction:
+
+> Use Narrative Motion Kit to make a finished film from the attached recording. Read AGENTS.md, docs/AGENT_PLAYBOOK.md and prompts/CREATE_VIDEO.md. Analyze the entire file and its narrative structure, establish verified speech timestamps, and match the visible content precisely to what is being said. Research and download useful authentic images, including portraits of important named people. Choose the style autonomously, inspect the film with audio, revise synchronization and visual weaknesses, and deliver the final video with sources and QA.
+
+The [agent playbook](docs/AGENT_PLAYBOOK.md) is the detailed operating instruction. The user supplies the recording; the agent handles analysis, research, asset selection, storyboarding, timing, rendering and review. Speech recognition/forced alignment requires tools available to that agent; the repository's plain-text alignment is approximate and cannot certify precise synchronization.
+
 Give an agent [prompts/CREATE_VIDEO.md](prompts/CREATE_VIDEO.md) with narration, optional transcript, brief, and assets. The repository also includes a portable [create-documentary skill](.agents/skills/create-documentary/SKILL.md) and [AGENTS.md](AGENTS.md).
 
 1. Copy narration into the new project's `narration/` directory and configure its relative path.
