@@ -3,7 +3,7 @@ import type { SceneContext } from './types';
 import { statistic, lineChart, barChart, breakdown, comparison } from './data';
 import { portraitDuel, photo, evidence, timeline } from './documentary';
 import { flow, geoFlow } from './mechanisms';
-import { footer, header } from './shared';
+import { chronicleSurface, footer, header } from './shared';
 import { sceneTheme } from '../theme/index';
 export type { SceneContext } from './types';
 
@@ -68,7 +68,7 @@ export function renderScene(scene: Scene, ctx: SceneContext): string {
     scene.type === 'custom'
       ? ''
       : `<rect width="${ctx.width}" height="${ctx.height}" fill="${ctx.theme.background}"/>`;
-  return `<g data-scene="${scene.id}" style="isolation:isolate">${background}${header(scene, ctx)}<g data-scene-content="${scene.type}">${content}</g>${footer(scene, ctx)}</g>`;
+  return `<g data-scene="${scene.id}" style="isolation:isolate">${background}${header(scene, ctx)}<g data-scene-content="${scene.type}">${content}</g>${footer(scene, ctx)}${chronicleSurface(scene, ctx)}</g>`;
 }
 
 export interface SceneRecipe {
