@@ -8,7 +8,7 @@ Biblioteka do tworzenia filmów dokumentalnych i objaśniających na podstawie g
 
 ![Mapa regionalna oparta na rzeczywistych danych geograficznych](examples/map-v2.png)
 
-[Obejrzyj film demonstracyjny v2](examples/demo-fuel-prices-v2.mp4) · [Przegląd plansz](examples/contact-01.jpg) · [Mapa przed i po poprawkach](examples/map-before-after.jpg) · [Pięć stylów](examples/style-presets.jpg)
+[Obejrzyj film demonstracyjny v2](examples/demo-fuel-prices-v2.mp4) · [Przegląd plansz](examples/contact-01.jpg) · [Mapa przed i po poprawkach](examples/map-before-after.jpg) · [Presety stylu](docs/ART_DIRECTION.md)
 
 ## Szybki start
 
@@ -75,8 +75,8 @@ Kompletny brief dla agenta znajduje się w [prompts/CREATE_VIDEO.md](prompts/CRE
 ## Możliwości
 
 - **12 rodzin scen:** liczba/statystyka, porównanie portretów, zdjęcie, materiał dowodowy, proces, podział całości, wykres liniowy, słupkowy, mapa z trasą, oś wydarzeń, porównanie wartości i scena własna.
-- **Pięć stylów:** `reportage`, `archive`, `atlas`, `technical`, `editorial`. Agent sam dobiera styl do tematu i materiałów; jasne plansze `tone: "paper"` pozwalają wyróżnić źródła i dane.
-- **Rzeczywista geografia:** lokalne GeoJSON/TopoJSON, projekcja Mercatora, zbliżenia, podpisy, skala, mapa lokalizacyjna i kontrola przecięcia lądu przez trasy morskie. Wybrzeża nie są generowane przez AI.
+- **Sześć stylów:** `reportage`, `archive`, `chronicle`, `atlas`, `technical`, `editorial`. `chronicle` jest gotowym kierunkiem dla narracyjnych filmów historycznych Świadka Dziejów: kość słoniowa, atrament, przygaszony burgund, mosiądz, atlasowe mapy, deterministyczna faktura i spokojniejsze animacje. Agent sam dobiera styl do tematu i materiałów; jasne plansze `tone: "paper"` wyróżniają źródła i dane.
+- **Rzeczywista geografia:** lokalne GeoJSON/TopoJSON, Mercator oraz Equal Earth, zbliżenia, podpisy, skala, mapa lokalizacyjna i kontrola przecięcia lądu przez trasy morskie. Wybrzeża i historyczne granice nie są generowane przez AI.
 - **Spójny ruch:** animacje zależne od bezwzględnego czasu, klatki kluczowe, easing, kontrolowana losowość, kamera i przejścia przenoszące element między scenami.
 - **Powtarzalny render:** klatki PNG, fragmenty, arkusze podglądowe, draft i H.264/AAC; równoległe strony przeglądarki, pamięć podręczna zależna od wejścia i kontrola przez ffprobe.
 - **Źródła i jakość:** walidowany format JSON/YAML, rejestr twierdzeń, danych i materiałów, licencje, daty źródeł, lokalne fonty, testy oraz kryteria oceny wizualnej.
@@ -111,7 +111,7 @@ Dokumentacja techniczna jest obecnie po angielsku; oba README opisują uruchomie
 | Zagadnienie             | Dokumentacja                                                                                                                     |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | Produkcja filmu         | [Workflow](docs/AI_WORKFLOW.md), [brief](prompts/CREATE_VIDEO.md)                                                                |
-| Storyboard i stylistyka | [Storyboard](docs/STORYBOARDING.md), [style](docs/ART_DIRECTION.md), [język wizualny](docs/VISUAL_GRAMMAR.md)                    |
+| Storyboard i stylistyka | [Storyboard](docs/STORYBOARDING.md), [style](docs/ART_DIRECTION.md), [Chronicle – historia](docs/HISTORY_STYLE.md), [język wizualny](docs/VISUAL_GRAMMAR.md) |
 | Sceny i przejścia       | [Katalog](docs/SCENE_CATALOG.md), [rozszerzanie](docs/ADDING_SCENES.md), [przejścia](docs/TRANSITIONS.md)                        |
 | Fakty i materiały       | [Research](docs/RESEARCH_POLICY.md), [materiały](docs/ASSET_POLICY.md), [dane](docs/DATA_VISUALIZATION.md), [mapy](docs/MAPS.md) |
 | Dźwięk i render         | [Audio](docs/AUDIO.md), [renderowanie](docs/RENDERING.md), [CLI](scripts/CLI.md)                                                 |
@@ -136,7 +136,7 @@ Kod biblioteki znajduje się w `packages/`, podgląd w `apps/preview/`, narzędz
 
 Powtarzalność dotyczy tego samego projektu i czasu w ustalonym środowisku. Różne systemy, GPU i przeglądarki mogą rasteryzować inaczej. Format pionowy wymaga osobnej kompozycji i oceny. Warstwy DOM/Canvas/WebGL wymagają obecnie cięć między scenami. Nie ma wbudowanej sceny zsynchronizowanego klipu wideo ani dołączonego modelu transkrypcji czy generatora obrazów. Dostępne interfejsy można rozszerzać o własnych dostawców.
 
-Presety nie zastępują reżyserii. Pola `grain`, `vignette`, `motion` i `stroke` są punktami rozszerzenia, a nie globalnie działającymi efektami. Research, zgodność faktów, dobór materiałów i ocena filmu nadal wymagają decyzji redakcyjnych.
+Presety nie zastępują reżyserii. `chronicle` wykorzystuje `grain` i `vignette` do deterministycznej warstwy wykończeniowej; w pozostałych presetach pola `grain`, `vignette`, `motion` i `stroke` pozostają głównie punktami rozszerzenia. Research, zgodność faktów, dobór materiałów i ocena filmu nadal wymagają decyzji redakcyjnych.
 
 ## Licencje
 
