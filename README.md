@@ -108,7 +108,7 @@ npm run test:gallery
 | Produce a complete video | [AI workflow](docs/AI_WORKFLOW.md), [master prompt](prompts/CREATE_VIDEO.md)                                                  |
 | Decide what to show      | [Storyboarding](docs/STORYBOARDING.md), [visual grammar](docs/VISUAL_GRAMMAR.md)                                              |
 | Pick and extend scenes   | [Catalog](docs/SCENE_CATALOG.md), [adding scenes](docs/ADDING_SCENES.md), [transitions](docs/TRANSITIONS.md)                  |
-| Handle facts and media   | [Research](docs/RESEARCH_POLICY.md), [assets](docs/ASSET_POLICY.md), [data](docs/DATA_VISUALIZATION.md), [maps](docs/MAPS.md) |
+| Handle facts and media   | [Research](docs/RESEARCH_POLICY.md), [assets](docs/ASSET_POLICY.md), [data](docs/DATA_VISUALIZATION.md), [maps](docs/MAPS.md), [historical maps](docs/HISTORICAL_MAPS.md) |
 | Work with audio          | [Audio](docs/AUDIO.md)                                                                                                        |
 | Render and diagnose      | [Rendering](docs/RENDERING.md), [CLI](scripts/CLI.md), [troubleshooting](docs/TROUBLESHOOTING.md)                             |
 | Assess quality           | [Rubric](docs/QUALITY_RUBRIC.md), [review prompt](prompts/REVIEW_VIDEO.md)                                                    |

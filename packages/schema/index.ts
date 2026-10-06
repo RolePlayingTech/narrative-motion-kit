@@ -284,6 +284,7 @@ export const SceneSchema = z.discriminatedUnion('type', [
       asset: id,
       center: geographicPoint,
       zoom: finite.positive().default(1),
+      projection: z.enum(['mercator', 'equal-earth']).default('mercator'),
       fromCenter: geographicPoint.optional(),
       fromZoom: finite.positive().optional(),
       composition: z.enum(['map', 'atlas']).default('map'),

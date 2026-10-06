@@ -204,6 +204,30 @@ describe('geographic projection and flights', () => {
     expect(path).not.toMatch(/NaN|Infinity/);
   });
 
+  it('supports an equal-area projection for historical area comparisons', () => {
+    const map = mapPaths(empty, {
+      width: 800,
+      height: 500,
+      center: [0, 0],
+      zoom: 4,
+      projection: 'equal-earth',
+    });
+    const [centerX, centerY] = map.project([0, 0]);
+    expect(centerX).toBeCloseTo(400);
+    expect(centerY).toBeCloseTo(250);
+    expect(map.land).not.toMatch(/NaN|Infinity/);
+    expect(map.graticule).not.toMatch(/NaN|Infinity/);
+    expect(() =>
+      mapPaths(empty, {
+        width: 800,
+        height: 500,
+        center: [0, 91],
+        zoom: 4,
+        projection: 'equal-earth',
+      }),
+    ).toThrow('90°S');
+  });
+
   it('clips projected routes to the viewport and keeps north up', () => {
     const map = mapPaths(empty, { width: 800, height: 500, center: [0, 0], zoom: 10 });
     expect(

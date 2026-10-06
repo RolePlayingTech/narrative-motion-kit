@@ -8,7 +8,7 @@ Register a cached `geojson` or `topojson` asset and reference its ID from a `geo
 
 The preparation layer accepts both D3/TopoJSON and RFC 7946 polygon winding. It evaluates a complete polygon, including holes, before reversing orientation; reversing rings independently can turn a valid Antarctic polar cap into global land. Intentional regions larger than a hemisphere can use `winding: "preserve"` when prepared in code. [D3 documents the different winding conventions](https://d3js.org/d3-geo). Regression tests inspect actual raster pixels as well as geographic point containment.
 
-Coordinates are **[longitude, latitude] in degrees**, including scene centers, route points, and place labels. They are not pixel coordinates. The scene uses a Mercator projection; zoom is a scale multiplier. This is suitable for many regional route explanations, but distorts area toward the poles. Do not use its apparent country areas for geographic comparisons. Use a custom equal-area projection where area matters.
+Coordinates are **[longitude, latitude] in degrees**, including scene centers, route points, and place labels. They are not pixel coordinates. The scene defaults to a Mercator projection; zoom is a scale multiplier. This is suitable for many regional route explanations, but distorts area toward the poles. `geo-flow.projection` can be set to `equal-earth` when relative area is part of the claim. Do not infer quantitative area from projected pixels even in an equal-area view; verify area values from sourced data.
 
 `center`/`zoom` set the destination framing. `fromCenter`/`fromZoom` allow an establishing geographic flight. Places can be emphasized, and an optional metric can state a sourced quantity. A metric is text: its factual value and source relationship remain an editorial responsibility.
 
@@ -35,3 +35,8 @@ Never smooth a coastline so aggressively that an island or strait central to the
 ## Scope
 
 The built-in recipe provides projected land, graticule, routes, geographic camera movement, labels, and a metric. It is not a turn-by-turn navigation system or a complete historical boundary database. A custom globe or alternate projection can use the extension lifecycle; a 2D map does not become 3D merely by adding rotation.
+
+
+## Historical geography
+
+Changing political boundaries need additional provenance and temporal rules. Read [HISTORICAL_MAPS.md](HISTORICAL_MAPS.md) before using historical borders, partitions, annexations, occupation/control layers or territorial claims. The historical sidecar manifest records time validity, semantic kind, confidence and redistribution status independently of a film project.
