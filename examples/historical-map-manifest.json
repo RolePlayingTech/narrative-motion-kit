@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "crs": "EPSG:4326",
+  "title": "Historical boundary manifest example",
+  "sources": [
+    {
+      "id": "institutional-gis",
+      "title": "Institutional historical GIS dataset",
+      "url": "https://example.org/historical-boundaries",
+      "license": "CC BY 4.0",
+      "attribution": "Example Historical Institute",
+      "publisher": "Example Historical Institute",
+      "acquiredAt": "2026-10-06",
+      "redistribution": "allowed",
+      "notes": "Replace this record with the exact source used by the project."
+    }
+  ],
+  "layers": [
+    {
+      "id": "example-state-1600",
+      "series": "political-boundary",
+      "asset": "example-state-1600-geojson",
+      "label": "Example state, c. 1600",
+      "kind": "political",
+      "startYear": 1600,
+      "endYear": 1650,
+      "sourceIds": ["institutional-gis"],
+      "confidence": "reconstructed",
+      "cartographyLabel": "Political boundary c. 1600 · reconstructed · Example Historical Institute",
+      "notes": "Use equal-earth when apparent area is part of the argument."
+    },
+    {
+      "id": "example-state-1650",
+      "series": "political-boundary",
+      "asset": "example-state-1650-geojson",
+      "label": "Example state, c. 1650",
+      "kind": "political",
+      "startYear": 1650,
+      "endYear": null,
+      "sourceIds": ["institutional-gis"],
+      "confidence": "reconstructed",
+      "cartographyLabel": "Political boundary c. 1650 · reconstructed · Example Historical Institute"
+    }
+  ]
+}
