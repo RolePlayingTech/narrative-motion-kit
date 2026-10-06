@@ -192,6 +192,33 @@ export const rect = (
   extra = '',
 ) =>
   `<rect x="${x}" y="${y}" width="${Math.max(0, width)}" height="${Math.max(0, height)}" fill="${color}" ${extra}/>`;
+/**
+ * Deterministic finishing surface for the chronicle art direction.
+ * Avoids animated noise, fake scratches and evidence-altering filters.
+ */
+export function chronicleSurface(scene: Scene, ctx: SceneContext): string {
+  if (ctx.project.theme !== 'chronicle') return '';
+  const light = scene.tone === 'paper',
+    t = ctx.theme,
+    grainId = `chronicle-grain-${scene.id}`,
+    vignetteId = `chronicle-vignette-${scene.id}`,
+    grainColor = light ? t.ink : t.text,
+    edgeColor = light ? t.ink : '#000000',
+    grainOpacity = Math.max(0, Math.min(0.08, t.grain)),
+    vignetteOpacity = Math.max(0, Math.min(0.25, t.vignette));
+  return (
+    `<defs><pattern id="${grainId}" width="64" height="64" patternUnits="userSpaceOnUse">` +
+    `<circle cx="7" cy="11" r=".75" fill="${grainColor}"/><circle cx="39" cy="18" r=".55" fill="${grainColor}"/>` +
+    `<circle cx="21" cy="47" r=".65" fill="${grainColor}"/><circle cx="57" cy="53" r=".45" fill="${grainColor}"/>` +
+    `<path d="M4 33h9M46 38h6M29 5h5" stroke="${grainColor}" stroke-width=".45"/>` +
+    `</pattern><radialGradient id="${vignetteId}" cx="50%" cy="48%" r="72%">` +
+    `<stop offset="54%" stop-color="${edgeColor}" stop-opacity="0"/><stop offset="100%" stop-color="${edgeColor}" stop-opacity="1"/>` +
+    `</radialGradient></defs>` +
+    `<g data-qa-ignore="true" pointer-events="none"><rect width="${ctx.width}" height="${ctx.height}" fill="url(#${grainId})" opacity="${grainOpacity}"/>` +
+    `<rect width="${ctx.width}" height="${ctx.height}" fill="url(#${vignetteId})" opacity="${vignetteOpacity}"/></g>`
+  );
+}
+
 export function contentLabel(
   value: string,
   x: number,
