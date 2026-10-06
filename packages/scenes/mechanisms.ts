@@ -160,7 +160,7 @@ export function mapFrame(scene: SceneOf<'geo-flow'>, ctx: SceneContext) {
     height,
     center,
     zoom,
-    map: mapPaths(geometry, { width, height, center, zoom }),
+    map: mapPaths(geometry, { width, height, center, zoom, projection: scene.projection }),
   };
 }
 
@@ -222,7 +222,7 @@ export function geoFlow(scene: SceneOf<'geo-flow'>, ctx: SceneContext): string {
       );
     })
     .join('');
-  // North remains up in this Mercator view; physical scale is computed at the current center latitude.
+  // With longitude-only rotation, north remains up in the supported projections; the scale is local.
   const pixelsPerDegree = Math.abs(
     map.project([f.center[0] + 1, f.center[1]])[0] - map.project(f.center)[0],
   );
@@ -292,6 +292,7 @@ export function geoFlow(scene: SceneOf<'geo-flow'>, ctx: SceneContext): string {
         height: ih,
         center: [scene.center[0] - 6, scene.center[1]],
         zoom: 3.7,
+        projection: scene.projection,
       });
       const locatorId = `${clip}-locator`;
       const point = locator.project(scene.center);
