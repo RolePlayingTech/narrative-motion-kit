@@ -170,12 +170,13 @@ export function geoFlow(scene: SceneOf<'geo-flow'>, ctx: SceneContext): string {
   const l = layout(ctx),
     { s, vertical } = l,
     t = ctx.theme,
-    atlas = scene.composition === 'atlas';
+    atlas = scene.composition === 'atlas',
+    chronicle = ctx.project.theme === 'chronicle';
   const clip = `map-${scene.id}`,
-    land = atlas ? '#ded6bd' : t.panel;
-  const water = atlas ? '#b9d4d6' : '#152c36',
-    ink = atlas ? '#28464c' : t.text;
-  const routeColor = atlas ? '#b4472b' : t.accent;
+    land = atlas ? (chronicle ? '#d8ccae' : '#ded6bd') : t.panel;
+  const water = atlas ? (chronicle ? '#aebfc0' : '#b9d4d6') : '#152c36',
+    ink = atlas ? (chronicle ? '#2d302a' : '#28464c') : t.text;
+  const routeColor = atlas ? (chronicle ? t.accent : '#b4472b') : t.accent;
   let svg = `<defs><clipPath id="${clip}">${rect(x, y, w, h, 'white')}</clipPath></defs>`;
   svg += `<g clip-path="url(#${clip})"><g transform="translate(${x} ${y})">`;
   svg +=
