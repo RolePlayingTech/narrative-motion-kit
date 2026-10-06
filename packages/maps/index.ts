@@ -1,3 +1,4 @@
+export * from './historical';
 import { geoArea, geoContains, geoEqualEarth, geoMercator, geoPath, geoGraticule, geoInterpolate } from 'd3-geo';
 import type { FeatureCollection, Feature, Geometry, Position } from 'geojson';
 import { feature } from 'topojson-client';
