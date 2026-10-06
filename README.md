@@ -79,13 +79,13 @@ Plain-text transcript timing is an explicitly approximate starting point. Suppli
 - Absolute-time rendering and half-open scene intervals, keyed randomness, easing, keyframes, closed-form springs, path interpolation, camera/framing utilities.
 - Strict JSON/YAML schema, source/claim/dataset records, asset manifest, local path checks, narration ingestion, and metadata provenance.
 - Twelve DSL scene families: statistic, portrait-duel, photo, evidence, flow, breakdown, line-chart, bar-chart, geo-flow, timeline, comparison, and custom.
-- Semantic transition recipes, responsive layout foundations, Polish typography, five selectable art directions and light evidence/data pages, SVG/DOM composition, Canvas particle-flow and a lazy Three.js globe extension.
+- Semantic transition recipes, responsive layout foundations, Polish typography, six selectable art directions (including `chronicle` for historical films) and light evidence/data pages, SVG/DOM composition, Canvas particle-flow and a lazy Three.js globe extension.
 - Exact-time frames, ranges, contact sheets, drafts, final H.264/AAC video, parallel browser pages, fingerprinted frame reuse, and ffprobe validation.
 - Agent workflow, research and asset policies, visual grammar, a weighted creative rubric, and a reusable project template.
 
 See [scene catalog](docs/SCENE_CATALOG.md) for precise capabilities and limits. A schema-valid project is not automatically a factual, readable, or polished film.
 
-Agents select the most suitable style for each film using [art direction](docs/ART_DIRECTION.md). Maps use retained geographic datasets, with [geographic and sea-route checks](docs/MAPS.md); the framework does not generate coastlines.
+Agents select the most suitable style for each film using [art direction](docs/ART_DIRECTION.md). Narration-led historical films can use the implemented [Chronicle style](docs/HISTORY_STYLE.md): warm ink/bone/oxblood/brass, historical atlas treatment, deterministic texture and restrained documentary motion. Maps use retained geographic datasets, with [geographic and sea-route checks](docs/MAPS.md); the framework does not generate coastlines.
 
 ## Demonstration
 
@@ -106,7 +106,7 @@ npm run test:gallery
 | Task                     | Guide                                                                                                                         |
 | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | Produce a complete video | [AI workflow](docs/AI_WORKFLOW.md), [master prompt](prompts/CREATE_VIDEO.md)                                                  |
-| Decide what to show      | [Storyboarding](docs/STORYBOARDING.md), [visual grammar](docs/VISUAL_GRAMMAR.md)                                              |
+| Decide what to show      | [Storyboarding](docs/STORYBOARDING.md), [visual grammar](docs/VISUAL_GRAMMAR.md), [Chronicle history style](docs/HISTORY_STYLE.md) |
 | Pick and extend scenes   | [Catalog](docs/SCENE_CATALOG.md), [adding scenes](docs/ADDING_SCENES.md), [transitions](docs/TRANSITIONS.md)                  |
 | Handle facts and media   | [Research](docs/RESEARCH_POLICY.md), [assets](docs/ASSET_POLICY.md), [data](docs/DATA_VISUALIZATION.md), [maps](docs/MAPS.md), [historical maps](docs/HISTORICAL_MAPS.md) |
 | Work with audio          | [Audio](docs/AUDIO.md)                                                                                                        |
