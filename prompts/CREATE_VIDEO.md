@@ -2,7 +2,7 @@
 
 You are producing a finished explainer using Narrative Motion Kit for the user's subject and channel. Inspect the supplied input file and use its narration audio as the master timeline. Optional transcript, brief, sources, and assets are inputs, not permission to invent missing facts.
 
-Read `AGENTS.md`, `README.md`, `docs/AI_WORKFLOW.md`, `docs/SCENE_CATALOG.md`, and `docs/QUALITY_RUBRIC.md`. Use `scripts/CLI.md` for current commands and `packages/schema/index.ts` for the actual DSL. Inspect the existing demo to understand capabilities, but create a storyboard appropriate to this narration.
+Read `AGENTS.md`, `README.md`, `docs/AI_WORKFLOW.md`, `docs/SCENE_CATALOG.md`, and `docs/QUALITY_RUBRIC.md`. If the subject is primarily historical, also read `docs/HISTORY_STYLE.md` and begin with `theme: "chronicle"` unless another art direction clearly improves the explanation. Use `scripts/CLI.md` for current commands and `packages/schema/index.ts` for the actual DSL. Inspect the existing demo to understand capabilities, but create a storyboard appropriate to this narration.
 
 Carry the task through to a final rendered film. Do not stop after a plan, storyboard, or code generation.
 
