@@ -25,7 +25,7 @@ Choose one of five project themes using [art direction](ART_DIRECTION.md). A sce
 
 ## Geographic and mechanism options
 
-`geo-flow` supports `composition: "atlas"`: a large map, a separate metric and an optional locator from `locatorAsset`. Register the locator's local geography asset separately. Use `cartographyLabel` for dataset scale and year, and `places[].kind` (`place`, `country`, `water`) plus optional label `offset` for geographic hierarchy. `metric.context` adds a short explanation beneath its value. A route marked `surface: "sea"` is checked against retained land polygons during QA. See [maps](MAPS.md) for geometry winding, source acquisition, limitations and reproducible examples.
+`geo-flow` supports `composition: "atlas"`: a large map, a separate metric and an optional locator from `locatorAsset`. Its `projection` is `mercator` by default and may be set to `equal-earth` when relative area must remain visually honest. Register the locator's local geography asset separately. Use `cartographyLabel` for dataset scale and year, and `places[].kind` (`place`, `country`, `water`) plus optional label `offset` for geographic hierarchy. `metric.context` adds a short explanation beneath its value. A route marked `surface: "sea"` is checked against retained land polygons during QA. See [maps](MAPS.md) for geometry winding, source acquisition, limitations and reproducible examples.
 
 Flow nodes can use reusable `icon` values `oil`, `refinery`, `ship`, `pump`, `money`, and `document`. These icons explain the stage; the arrows remain a qualitative mechanism unless their weights have sources.
 
@@ -72,3 +72,6 @@ Use evidence for proof, flow for mechanism, data scenes for scale, geography for
 There are no placeholder aliases for every requested documentary pattern. New specialist recipes should generalize a demonstrated project need, preserve truthful data and asset contracts, and include rendered inspection evidence.
 
 The manifest can track video assets, but there is no built-in synchronized video-clip scene. A custom decoder/layer must seek the clip to the requested absolute time and wait for decoded pixels before capture; normal `<video>` playback is not deterministic frame rendering.
+
+
+For historical boundary series, use the provenance/time contract in [HISTORICAL_MAPS.md](HISTORICAL_MAPS.md) rather than treating a dated polygon as an ordinary timeless land asset.
