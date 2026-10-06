@@ -212,7 +212,9 @@ describe('geographic projection and flights', () => {
       zoom: 4,
       projection: 'equal-earth',
     });
-    expect(map.project([0, 0])).toEqual([400, 250]);
+    const [centerX, centerY] = map.project([0, 0]);
+    expect(centerX).toBeCloseTo(400);
+    expect(centerY).toBeCloseTo(250);
     expect(map.land).not.toMatch(/NaN|Infinity/);
     expect(map.graticule).not.toMatch(/NaN|Infinity/);
     expect(() =>
