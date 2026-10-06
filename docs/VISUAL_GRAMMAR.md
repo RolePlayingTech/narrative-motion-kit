@@ -1,6 +1,6 @@
 # Visual grammar for Świadek Dziejów
 
-The default identity is serious, cinematic, and analytical: dark neutral grounds, warm paper/evidence surfaces, restrained accents, substantial typography, and deliberate empty space. Use theme tokens rather than inventing local palettes. The archive and technical themes change emphasis while preserving hierarchy.
+The default identity is serious, cinematic, and analytical: dark neutral grounds, warm paper/evidence surfaces, restrained accents, substantial typography, and deliberate empty space. Use theme tokens rather than inventing local palettes. The archive and technical themes change emphasis while preserving hierarchy. For narration-led historical productions, the implemented `chronicle` direction provides a dedicated palette, deterministic tactile surface and motion rules; read [HISTORY_STYLE.md](HISTORY_STYLE.md) before inventing topic-local historical styling.
 
 ## Hierarchy before decoration
 
