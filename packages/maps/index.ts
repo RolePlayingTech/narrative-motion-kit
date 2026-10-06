@@ -1,8 +1,9 @@
-export * from './historical';
 import { geoArea, geoContains, geoEqualEarth, geoMercator, geoPath, geoGraticule, geoInterpolate } from 'd3-geo';
 import type { FeatureCollection, Feature, Geometry, Position } from 'geojson';
 import { feature } from 'topojson-client';
 import type { Topology, GeometryCollection } from 'topojson-specification';
+
+export * from './historical';
 
 export interface GeometryOptions {
   /** Explicit object selection for topologies containing multiple map layers. */
@@ -113,8 +114,8 @@ export function mapPaths(
   if (![options.width, options.height, options.zoom].every((n) => Number.isFinite(n) && n > 0))
     throw new Error('Map width, height and zoom must be finite and positive');
   const projectionName = options.projection ?? 'mercator';
-  if (!options.center.every(Number.isFinite) || Math.abs(options.center[1]) > 90)
-    throw new Error('Map center must be finite and between 90°S and 90°N');
+  if (!options.center.every(Number.isFinite) || Math.abs(options.center[1]) >= 90)
+    throw new Error('Map center must be finite and between 90°S and 90°N (exclusive)');
   if (projectionName === 'mercator' && Math.abs(options.center[1]) >= 85.05112878)
     throw new Error('Mercator map center must be between 85.05°S and 85.05°N');
   const projection = (projectionName === 'equal-earth' ? geoEqualEarth() : geoMercator())
