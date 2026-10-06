@@ -373,7 +373,7 @@ export const ProjectSchema = z
       .strict(),
     fps: z.number().int().min(1).max(120),
     duration: finite.positive(),
-    theme: z.enum(['editorial', 'archive', 'technical', 'reportage', 'atlas']).default('editorial'),
+    theme: z.enum(['editorial', 'archive', 'chronicle', 'technical', 'reportage', 'atlas']).default('editorial'),
     narration: z
       .object({
         file: localPath.optional(),
