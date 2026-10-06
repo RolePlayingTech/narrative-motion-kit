@@ -245,8 +245,13 @@ A separate Atlas Fontium layer for c. 1772 is published under CC BY-NC 2.0 PL. T
 
 For 1569, 1793 and 1795, acquire date-appropriate layers separately. Do not derive them by simply scaling or hand-editing the 1619 outline unless the result is explicitly labelled an editorial approximation and the film can tolerate that weaker claim.
 
+## Visual treatment
+
+When the finished film uses the `chronicle` art direction, follow [HISTORY_STYLE.md](HISTORY_STYLE.md) for palette, typography, texture, reveal timing and transition behavior. Historical truth rules in this document override aesthetic convenience.
+
 ## Related files
 
+- `docs/HISTORY_STYLE.md` — Chronicle palette, typography, texture and motion language.
 - `docs/MAPS.md` — general geographic rendering and route rules.
 - `docs/STORYBOARDING.md` — cue and information-gain planning.
 - `docs/RESEARCH_POLICY.md` — claim/source standards.
