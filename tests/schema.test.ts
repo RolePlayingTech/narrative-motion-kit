@@ -135,6 +135,12 @@ describe('project schema production invariants', () => {
     expect(ProjectSchema.safeParse(project).success).toBe(true);
   });
 
+  it('accepts the chronicle historical art direction', () => {
+    const project = validProject();
+    project.theme = 'chronicle';
+    expect(parseProject(project).theme).toBe('chronicle');
+  });
+
   it.each([
     ['gap', 2.2],
     ['overlap', 1.8],
