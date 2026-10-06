@@ -1,4 +1,4 @@
-import { geoArea, geoContains, geoMercator, geoPath, geoGraticule, geoInterpolate } from 'd3-geo';
+import { geoArea, geoContains, geoEqualEarth, geoMercator, geoPath, geoGraticule, geoInterpolate } from 'd3-geo';
 import type { FeatureCollection, Feature, Geometry, Position } from 'geojson';
 import { feature } from 'topojson-client';
 import type { Topology, GeometryCollection } from 'topojson-specification';
@@ -97,6 +97,8 @@ export interface MapOptions {
   height: number;
   center: [number, number];
   zoom: number;
+  /** Mercator is best for many route/local views; Equal Earth preserves relative area. */
+  projection?: 'mercator' | 'equal-earth';
 }
 export function mapPaths(
   geometry: FeatureCollection,
@@ -109,9 +111,12 @@ export function mapPaths(
 } {
   if (![options.width, options.height, options.zoom].every((n) => Number.isFinite(n) && n > 0))
     throw new Error('Map width, height and zoom must be finite and positive');
-  if (!options.center.every(Number.isFinite) || Math.abs(options.center[1]) >= 85.05112878)
-    throw new Error('Mercator map center must be finite and between 85.05°S and 85.05°N');
-  const projection = geoMercator()
+  const projectionName = options.projection ?? 'mercator';
+  if (!options.center.every(Number.isFinite) || Math.abs(options.center[1]) > 90)
+    throw new Error('Map center must be finite and between 90°S and 90°N');
+  if (projectionName === 'mercator' && Math.abs(options.center[1]) >= 85.05112878)
+    throw new Error('Mercator map center must be between 85.05°S and 85.05°N');
+  const projection = (projectionName === 'equal-earth' ? geoEqualEarth() : geoMercator())
     // Rotate the antimeridian with the central longitude so Pacific maps remain continuous.
     .rotate([-options.center[0], 0])
     .center([0, options.center[1]])
