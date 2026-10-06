@@ -13,7 +13,7 @@ For each supplied input file, read [the agent playbook](../../../docs/AGENT_PLAY
 
 Proactively acquire internet images when they improve recognition, explanation or evidence. Normally show important named people using authentic, identity-checked portraits. Verify source, period, context and reuse terms; cache originals and register provenance before rendering. A generated likeness is not documentary evidence. Use diagrams where they explain more than stock imagery.
 
-When the documentary uses historical borders or territorial change, read [historical maps](../../../docs/HISTORICAL_MAPS.md). Keep the geometry's date, meaning, confidence, license and attribution explicit; do not hand-draw authoritative-looking borders from memory. Use Equal Earth rather than Mercator when the visual argument depends on relative area.
+When the documentary uses historical borders or territorial change, read [historical maps](../../../docs/HISTORICAL_MAPS.md). Treat map construction as part of the film task: research, acquire, derive and validate the required project-local GeoJSON/TopoJSON yourself rather than assuming a dated boundary dataset is already bundled or asking the user to prepare it. Keep the geometry's date, meaning, confidence, license and attribution explicit; do not hand-draw authoritative-looking borders from memory. Use Equal Earth rather than Mercator when the visual argument depends on relative area.
 
 Preserve these production decisions:
 
